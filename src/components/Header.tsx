@@ -27,14 +27,24 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
           </span>
           <span className="flex items-center space-x-1">
             <Mail size={13} className="text-[#FFC72C]" />
-            <span>nhatthiensonsaigon@gmail.com</span>
+            <span>nhatthienson@nhatthienson.vn</span>
           </span>
         </div>
-        <div className="flex items-center space-x-4 font-semibold">
+        <div className="flex items-center space-x-6 font-semibold">
           <span className="flex items-center space-x-1">
             <Phone size={13} className="text-[#FFC72C]" />
             <span>Hỗ trợ 24/7: 0888.447.239</span>
           </span>
+          <a 
+            href="https://nhatthienson.nhatthienson.vn" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center space-x-1 bg-blue-800/60 hover:bg-[#FF5A00] transition-all duration-200 px-2.5 py-1 rounded text-[11px] text-white font-bold border border-blue-700/50 hover:border-transparent"
+            title="Dành cho nhân viên Nhất Thiên Sơn"
+          >
+            <Mail size={12} className="text-[#FFC72C]" />
+            <span>Đăng nhập Webmail</span>
+          </a>
         </div>
       </div>
 

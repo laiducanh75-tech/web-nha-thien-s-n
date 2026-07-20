@@ -113,7 +113,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
   };
 
   // Handle contact form submission
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -140,7 +140,37 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
       console.error(err);
     }
 
-    setTimeout(() => {
+    // Submit to Web3Forms to deliver directly to user's registered email
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          access_key: "5d82b96c-a441-46aa-b351-fcb42a15e2c5",
+          subject: `Yêu cầu báo giá mới từ: ${fullName}`,
+          from_name: "Nhất Thiên Sơn Sài Gòn Logistics",
+          "Họ và Tên": fullName,
+          "Số điện thoại": phone,
+          "Email": email,
+          "Hình thức vận chuyển": cargoType,
+          "Nơi gửi (Origin)": origin,
+          "Nơi nhận (Destination)": destination,
+          "Nội dung lời nhắn": message,
+        })
+      });
+      
+      const result = await response.json();
+      if (result.success) {
+        console.log("Gửi yêu cầu qua Web3Forms thành công:", result);
+      } else {
+        console.warn("Lỗi từ Web3Forms:", result);
+      }
+    } catch (err) {
+      console.error("Lỗi khi kết nối tới dịch vụ Web3Forms:", err);
+    } finally {
       setIsSubmitting(false);
       setFormSuccess(true);
       // Reset fields
@@ -150,7 +180,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
       setOrigin('');
       setDestination('');
       setMessage('');
-    }, 1000);
+    }
   };
 
   // Service helper to render icons
@@ -568,7 +598,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
                   </span>
                   <div>
                     <h4 className="font-bold text-gray-800">Hòm thư điện tử</h4>
-                    <p className="text-gray-500 text-xs mt-0.5 font-mono">nhatthiensonsaigon@gmail.com</p>
+                    <p className="text-gray-500 text-xs mt-0.5 font-mono">nhatthienson@nhatthienson.vn</p>
                   </div>
                 </div>
               </div>

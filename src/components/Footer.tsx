@@ -119,6 +119,18 @@ export default function Footer({ onTabChange }: FooterProps) {
                 Điều khoản dịch vụ (Terms)
               </a>
             </li>
+            <li className="pt-1.5 border-t border-gray-800 mt-1.5">
+              <a 
+                href="https://nhatthienson.nhatthienson.vn" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-[#FFC72C] hover:text-white transition-all py-1 font-bold flex items-center gap-1.5"
+                title="Hệ thống Email công vụ của Nhất Thiên Sơn"
+              >
+                <Mail size={14} className="text-[#FFC72C]" />
+                <span>Webmail Nội Bộ (NTS Mail)</span>
+              </a>
+            </li>
           </ul>
         </div>
 
