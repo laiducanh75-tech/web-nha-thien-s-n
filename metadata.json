@@ -1,0 +1,8 @@
+{
+  "name": "Nhất Thiên Sơn Sài Gòn Logistics",
+  "description": "Ứng dụng giới thiệu dịch vụ và tra cứu vận đơn Nhất Thiên Sơn Logistics - Saigon Logistics",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
