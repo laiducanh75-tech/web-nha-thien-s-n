@@ -1,5 +1,5 @@
 import React from 'react';
-import logoImg from '../assets/images/logonts1.png';
+<img src="/assets/images/logonts1.png" alt="NTS Logo" />
 
 interface NtsLogoProps {
   className?: string;
