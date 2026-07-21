@@ -23,7 +23,7 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
         <div className="flex items-center space-x-6">
           <span className="flex items-center space-x-1">
             <MapPin size={13} className="text-[#FFC72C]" />
-            <span>138/12 Tô Ngọc Vân, Thới An, Q.12, TPHCM</span>
+            <span>138/10 Khu Phố 57, P. Thới An, Q.12, TPHCM</span>
           </span>
           <span className="flex items-center space-x-1">
             <Mail size={13} className="text-[#FFC72C]" />
@@ -55,8 +55,8 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
           className="flex items-center space-x-3 cursor-pointer group"
           onClick={() => { onTabChange('home'); setIsOpen(false); }}
         >
-          {/* Official Saigon Logistics Circular Logo */}
-          <NtsLogo className="w-14 h-14 flex-shrink-0 group-hover:scale-105 transition-transform duration-300" />
+          {/* Official NTS Saigon Logistics Logo */}
+          <NtsLogo className="w-16 h-16 md:w-20 md:h-20 flex-shrink-0 group-hover:scale-105 transition-transform duration-300" />
           
           <div className="flex flex-col">
             <h1 className="text-lg md:text-xl font-extrabold text-[#002D62] leading-tight tracking-tight uppercase">
@@ -143,8 +143,8 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
               Liên hệ báo giá ngay
             </button>
             <div className="pt-3 border-t border-gray-200 mt-2 text-xs text-gray-500 space-y-1">
-              <p>📍 Trụ sở: Thới An, Quận 12, TPHCM</p>
-              <p>📞 Hotline: 0888.447.239 / 0919.417.239</p>
+              <p>📍 Trụ sở: 138/10 KP 57, Thới An, Q.12, TPHCM</p>
+              <p>📞 Hotline: 0888.447.239</p>
             </div>
           </div>
         </div>

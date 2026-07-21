@@ -194,15 +194,15 @@ export const SERVICES_DATA = [
     id: "road",
     title: "Đường bộ",
     icon: "Truck",
-    desc: "Đội xe tải hiện đại, linh hoạt vận chuyển nội địa và xuyên biên giới nhanh chóng.",
-    details: "Đội xe container, xe tải trung chuyển hiện đại phủ khắp 63 tỉnh thành Việt Nam, kết nối vận tải xuyên biên giới sang Lào, Campuchia, Trung Quốc. Dịch vụ phân phối chặng cuối tận nơi, quản lý hành trình GPS thời gian thực, đảm bảo an toàn tuyệt đối."
+    desc: "Đội xe tải hiện đại, linh hoạt vận chuyển nội địa nhanh chóng.",
+    details: "Đội xe container, xe tải trung chuyển hiện đại phủ khắp 63 tỉnh thành Việt Nam. Dịch vụ phân phối chặng cuối tận nơi, quản lý hành trình GPS thời gian thực, đảm bảo an toàn tuyệt đối."
   },
   {
     id: "air",
     title: "Hàng không",
     icon: "Plane",
     desc: "Giải pháp vận chuyển hàng không ưu tiên dành cho các mặt hàng cần gấp, giá trị cao.",
-    details: "Đối tác chiến lược của các hãng hàng không hàng đầu (Vietnam Airlines, Singapore Airlines, ANA Cargo). Thủ tục hải quan sân bay thần tốc tại Tân Sơn Nhất, Nội Bài, Đà Nẵng. Thích hợp cho thiết bị y tế, linh kiện điện tử cao cấp, hàng tươi sống."
+    details: "Đối tác chiến lược của các hãng hàng không hàng đầu (Vietnam Airlines, Singapore Airlines, ANA Cargo). Quy trình xử lý chứng từ hàng không chuẩn xác và chuyên nghiệp tại Tân Sơn Nhất, Nội Bài, Đà Nẵng. Thích hợp cho thiết bị y tế, linh kiện điện tử cao cấp, hàng tươi sống."
   },
   {
     id: "warehouse",

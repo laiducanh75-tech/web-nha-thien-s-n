@@ -140,21 +140,19 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
       console.error(err);
     }
 
-    // Submit to Web3Forms to deliver directly to user's registered email
+    // Submit to Formspree to deliver directly to user's Gmail
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("https://formspree.io/f/mqerlkap", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json"
         },
         body: JSON.stringify({
-          access_key: "5d82b96c-a441-46aa-b351-fcb42a15e2c5",
-          subject: `Yêu cầu báo giá mới từ: ${fullName}`,
-          from_name: "Nhất Thiên Sơn Sài Gòn Logistics",
+          _subject: `Yêu cầu báo giá mới từ: ${fullName}`,
           "Họ và Tên": fullName,
           "Số điện thoại": phone,
-          "Email": email,
+          "Email / Gmail": email,
           "Hình thức vận chuyển": cargoType,
           "Nơi gửi (Origin)": origin,
           "Nơi nhận (Destination)": destination,
@@ -162,14 +160,13 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
         })
       });
       
-      const result = await response.json();
-      if (result.success) {
-        console.log("Gửi yêu cầu qua Web3Forms thành công:", result);
+      if (response.ok) {
+        console.log("Gửi yêu cầu qua Formspree thành công");
       } else {
-        console.warn("Lỗi từ Web3Forms:", result);
+        console.warn("Lỗi từ Formspree:", response.statusText);
       }
     } catch (err) {
-      console.error("Lỗi khi kết nối tới dịch vụ Web3Forms:", err);
+      console.error("Lỗi khi kết nối tới dịch vụ Formspree:", err);
     } finally {
       setIsSubmitting(false);
       setFormSuccess(true);
@@ -307,28 +304,6 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
         </section>
       )}
 
-      {/* 3. Statistics indicators bar */}
-      <section className="bg-white border-y border-slate-200 py-8 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div className="space-y-1">
-            <span className="block text-3xl sm:text-4xl font-extrabold text-[#002D62]">1,248+</span>
-            <span className="block text-xs text-gray-500 font-semibold uppercase tracking-wider">Lô Hàng Đang Hoạt Động</span>
-          </div>
-          <div className="space-y-1">
-            <span className="block text-3xl sm:text-4xl font-extrabold text-[#002D62]">42</span>
-            <span className="block text-xs text-gray-500 font-semibold uppercase tracking-wider">Tàu Đang Vận Hành</span>
-          </div>
-          <div className="space-y-1">
-            <span className="block text-3xl sm:text-4xl font-extrabold text-[#002D62]">4.2d</span>
-            <span className="block text-xs text-gray-500 font-semibold uppercase tracking-wider">Thời Gian Giao Hàng TB</span>
-          </div>
-          <div className="space-y-1">
-            <span className="block text-3xl sm:text-4xl font-extrabold text-emerald-600">99.8%</span>
-            <span className="block text-xs text-gray-500 font-semibold uppercase tracking-wider">Đơn Hàng Hoàn Tất</span>
-          </div>
-        </div>
-      </section>
-
       {/* 4. Professional services list */}
       <section className="py-20 bg-slate-50" id="services-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -401,7 +376,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
                 Chúng tôi không chỉ là đơn vị vận tải đơn thuần, mà là người đồng hành đáng tin cậy giúp kết nối thông suốt mọi mắt xích trong chuỗi cung ứng toàn cầu từ vận chuyển đa phương thức đến dịch vụ kho bãi thông minh.
               </p>
               <p>
-                Với đội ngũ chuyên gia tận tâm, am hiểu sâu sắc quy trình vận hành và hải quan, chúng tôi cam kết bảo đảm an toàn tối đa cho mọi chuyến hàng và luôn đúng hẹn trong mọi tình huống.
+                Với đội ngũ chuyên gia tận tâm, am hiểu sâu sắc quy trình vận hành và giao nhận, chúng tôi cam kết bảo đảm an toàn tối đa cho mọi chuyến hàng và luôn đúng hẹn trong mọi tình huống.
               </p>
               <p>
                 Chúng tôi lấy sự hài lòng và thành công của khách hàng làm thước đo giá trị cốt lõi, không ngừng cải tiến công nghệ và tối ưu quy trình để đem lại trải nghiệm dịch vụ logistics chất lượng cao nhất.
@@ -479,7 +454,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
                     <input
                       type="tel"
                       required
-                      placeholder="0919.xxx.xxx"
+                      placeholder="0888.xxx.xxx"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       className="w-full bg-white border border-slate-200 rounded-lg py-2.5 px-3 text-sm focus:border-[#002D62] focus:ring-1 focus:ring-[#002D62] outline-none text-slate-800"
@@ -562,7 +537,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
             )}
           </div>
 
-          {/* Right side contact information blocks & Interactive map placeholder */}
+          {/* Right side contact information blocks & Interactive map */}
           <div className="lg:col-span-5 space-y-6 text-left">
             
             {/* Contact info card */}
@@ -578,7 +553,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
                   </span>
                   <div>
                     <h4 className="font-bold text-gray-800">Địa chỉ trụ sở</h4>
-                    <p className="text-gray-500 text-xs mt-0.5">138/10 Khu Phố 57, Phường Thới An, TPHCM</p>
+                    <p className="text-gray-500 text-xs mt-0.5">138/10 Khu Phố 57, Phường Thới An, Quận 12, TPHCM</p>
                   </div>
                 </div>
 
@@ -588,7 +563,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
                   </span>
                   <div>
                     <h4 className="font-bold text-gray-800">Điện thoại hỗ trợ</h4>
-                    <p className="text-gray-500 text-xs mt-0.5 font-mono">0888.447.239 / 0919.417.239</p>
+                    <p className="text-gray-500 text-xs mt-0.5 font-mono">0888.447.239</p>
                   </div>
                 </div>
 
@@ -604,34 +579,19 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
               </div>
             </div>
 
-            {/* Simulated Interactive Map Display card */}
-            <div className="bg-slate-100 rounded-2xl overflow-hidden shadow-sm border border-slate-200 relative h-64 flex flex-col justify-end">
-              {/* Fake visual map graphic */}
-              <div 
-                className="absolute inset-0 bg-cover bg-center filter grayscale contrast-125 opacity-70"
-                style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=800")' }}
-              ></div>
-              
-              {/* Visual Grid Lines and Map Coordinates Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/10 to-transparent z-10"></div>
-              
-              {/* Map pin */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
-                <span className="w-4 h-4 rounded-full bg-red-500 animate-ping absolute"></span>
-                <MapPin size={38} className="text-red-600 filter drop-shadow-md relative" />
-                <span className="bg-[#002D62] text-white text-[10px] font-bold px-2 py-0.5 rounded shadow mt-1 whitespace-nowrap">
-                  NTS Saigon Logistics
-                </span>
-              </div>
-
-              {/* Address tag on top of the Map */}
-              <div className="relative z-20 p-4 bg-white/95 backdrop-blur-sm m-3 rounded-lg border border-slate-200 text-xs">
-                <div className="flex items-center space-x-2 text-[#002D62] font-semibold mb-1">
-                  <MapPin size={14} className="text-[#FF5A00]" />
-                  <span>Văn phòng Nhất Thiên Sơn</span>
-                </div>
-                <p className="text-gray-500">138/12 Tô Ngọc Vân, Q.12, TPHCM</p>
-              </div>
+            {/* Real Interactive Google Map */}
+            <div className="bg-slate-100 rounded-2xl overflow-hidden shadow-sm border border-slate-200 h-80 flex flex-col">
+              <iframe
+                title="Bản đồ Nhất Thiên Sơn"
+                src="https://maps.google.com/maps?q=138/10%20Khu%20Ph%E1%BB%91%2057%20Ph%C6%B0%E1%BB%9Dng%20Th%E1%BB%9Bi%20An%20Qu%E1%BA%ADn%2012%20TPHCM&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full h-full"
+              ></iframe>
             </div>
 
           </div>

@@ -74,7 +74,7 @@ export default function AboutView({ onNavigateToTab }: AboutViewProps) {
                 Trải qua nhiều thập kỷ, chúng tôi đã không ngừng đầu tư vào công nghệ và con người để xây dựng một mạng lưới vận chuyển thông minh, linh hoạt và luôn đúng hẹn, bất chấp mọi thách thức của thị trường toàn cầu.
               </p>
               <p>
-                Mọi quy trình từ thu gom hàng, phân loại kiểm tra an ninh, thủ tục hải quan xuất nhập khẩu, đến phân phối chặng cuối đều được theo dõi chặt chẽ bằng phần mềm tối tân, nâng cao hiệu quả khai thác và cắt giảm tối đa chi phí phát sinh cho quý doanh nghiệp.
+                Mọi quy trình từ thu gom hàng, phân loại kiểm tra an ninh, quy trình chứng từ giao nhận, đến phân phối chặng cuối đều được theo dõi chặt chẽ bằng phần mềm tối tân, nâng cao hiệu quả khai thác và cắt giảm tối đa chi phí phát sinh cho quý doanh nghiệp.
               </p>
             </div>
           </div>

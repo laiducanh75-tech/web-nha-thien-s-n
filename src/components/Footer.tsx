@@ -10,10 +10,25 @@ export default function Footer({ onTabChange }: FooterProps) {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email.trim()) {
       setSubscribed(true);
+      try {
+        await fetch("https://formspree.io/f/mqerlkap", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            _subject: `Đăng ký Bản tin Logistics mới từ: ${email}`,
+            "Đăng ký nhận bản tin": email
+          })
+        });
+      } catch (err) {
+        console.error("Lỗi khi kết nối tới Formspree:", err);
+      }
       setTimeout(() => {
         setSubscribed(false);
         setEmail('');
@@ -28,7 +43,7 @@ export default function Footer({ onTabChange }: FooterProps) {
         {/* Brand Information Column */}
         <div className="space-y-4">
           <div className="flex items-center space-x-3">
-            <NtsLogo className="w-12 h-12 flex-shrink-0" />
+            <NtsLogo className="w-16 h-16 flex-shrink-0" />
             <div>
               <h2 className="text-lg font-bold text-white leading-tight uppercase tracking-wider">
                 Nhất Thiên Sơn
@@ -67,22 +82,17 @@ export default function Footer({ onTabChange }: FooterProps) {
             </li>
             <li>
               <button onClick={() => onTabChange('home')} className="hover:text-[#FFC72C] transition-colors text-left py-1">
-                Vận tải hàng không liên lục địa
+                Vận tải hàng không
               </button>
             </li>
             <li>
               <button onClick={() => onTabChange('home')} className="hover:text-[#FFC72C] transition-colors text-left py-1">
-                Vận tải đường bộ nội địa & liên biên giới
+                Vận tải đường bộ nội địa
               </button>
             </li>
             <li>
               <button onClick={() => onTabChange('home')} className="hover:text-[#FFC72C] transition-colors text-left py-1">
                 Dịch vụ kho bãi thông minh
-              </button>
-            </li>
-            <li>
-              <button onClick={() => onTabChange('home')} className="hover:text-[#FFC72C] transition-colors text-left py-1">
-                Khai báo Hải quan & Ủy thác XNK
               </button>
             </li>
           </ul>
@@ -140,7 +150,7 @@ export default function Footer({ onTabChange }: FooterProps) {
             Bản tin Logistics
           </h3>
           <p className="text-xs text-gray-300 leading-relaxed mb-4">
-            Đăng ký để nhận tin tức logistics, cảnh báo hải quan mới nhất và các ưu đãi cước vận chuyển định kỳ từ chúng tôi.
+            Đăng ký để nhận tin tức logistics mới nhất và các ưu đãi cước vận chuyển định kỳ từ chúng tôi.
           </p>
           <form onSubmit={handleSubscribe} className="flex flex-col space-y-2">
             <div className="relative">
@@ -169,11 +179,11 @@ export default function Footer({ onTabChange }: FooterProps) {
           <div className="pt-4 text-xs text-gray-400 space-y-1 border-t border-gray-800 mt-4">
             <div className="flex items-start space-x-1">
               <MapPin size={12} className="text-[#FFC72C] mt-0.5 flex-shrink-0" />
-              <span>138/12 Tô Ngọc Vân, Q.12, TPHCM</span>
+              <span>138/10 Khu Phố 57, Phường Thới An, Quận 12, TPHCM</span>
             </div>
             <div className="flex items-center space-x-1">
               <Phone size={12} className="text-[#FFC72C] flex-shrink-0" />
-              <span>0888.447.239 / 0919.417.239</span>
+              <span>0888.447.239</span>
             </div>
           </div>
         </div>
