@@ -56,7 +56,7 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
           onClick={() => { onTabChange('home'); setIsOpen(false); }}
         >
           {/* Official NTS Saigon Logistics Logo */}
-          <NtsLogo className="w-16 h-16 md:w-20 md:h-20 flex-shrink-0 group-hover:scale-105 transition-transform duration-300" />
+          <NtsLogo className="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 group-hover:scale-105 transition-transform duration-300" />
           
           <div className="flex flex-col">
             <h1 className="text-lg md:text-xl font-extrabold text-[#002D62] leading-tight tracking-tight uppercase">

@@ -43,7 +43,7 @@ export default function Footer({ onTabChange }: FooterProps) {
         {/* Brand Information Column */}
         <div className="space-y-4">
           <div className="flex items-center space-x-3">
-            <NtsLogo className="w-16 h-16 flex-shrink-0" />
+            <NtsLogo className="w-20 h-20 md:w-24 md:h-24 flex-shrink-0" />
             <div>
               <h2 className="text-lg font-bold text-white leading-tight uppercase tracking-wider">
                 Nhất Thiên Sơn
