@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Ship, Truck, Plane, Warehouse, ArrowRight, ShieldCheck, Mail, Phone, MapPin, CheckCircle, HelpCircle, Info } from 'lucide-react';
+import { Search, Ship, Truck, Plane, Warehouse, ShieldCheck, Mail, Phone, MapPin, CheckCircle, HelpCircle, Info } from 'lucide-react';
 import { INITIAL_SHIPMENTS, SERVICES_DATA } from '../data';
 import { Shipment, ContactRequest } from '../types';
 import TrackingTimeline from './TrackingTimeline';
@@ -25,9 +25,6 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
   const [message, setMessage] = useState('');
   const [formSuccess, setFormSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Expanded services state
-  const [expandedService, setExpandedService] = useState<string | null>(null);
 
   // Handle shipment tracking search
   const handleTrackingSearch = (e: React.FormEvent) => {
@@ -329,25 +326,9 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
                   <h3 className="text-[#002D62] font-bold text-xl mb-3 group-hover:text-[#FF5A00] transition-colors">
                     {service.title}
                   </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed mb-6">
+                  <p className="text-gray-500 text-sm leading-relaxed mb-4">
                     {service.desc}
                   </p>
-                </div>
-                
-                <div>
-                  {expandedService === service.id && (
-                    <div className="text-xs text-gray-600 bg-slate-50 p-3 rounded-lg border border-slate-100 mb-4 animate-fade-in">
-                      {service.details}
-                    </div>
-                  )}
-
-                  <button 
-                    onClick={() => setExpandedService(expandedService === service.id ? null : service.id)}
-                    className="text-[#002D62] font-bold text-sm flex items-center gap-1.5 hover:text-[#FF5A00] transition-colors"
-                  >
-                    <span>{expandedService === service.id ? 'Thu gọn' : 'Tìm hiểu thêm'}</span>
-                    <ArrowRight size={15} className={`transition-transform ${expandedService === service.id ? 'rotate-90' : ''}`} />
-                  </button>
                 </div>
               </div>
             ))}
@@ -413,6 +394,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
 
       {/* 6. Dynamic Contact and quoting Form Section */}
       <section className="py-20 bg-white" id="contact-section">
+        <div id="contact-form-anchor" className="h-1"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
           {/* Left: Input Form Fields */}

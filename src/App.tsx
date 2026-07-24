@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import HomeView from './components/HomeView';
 import AboutView from './components/AboutView';
 import ProjectsView from './components/ProjectsView';
+import FloatingContactButtons from './components/FloatingContactButtons';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
@@ -83,6 +84,9 @@ export default function App() {
 
       {/* Structured footer block */}
       <Footer onTabChange={setCurrentTab} />
+
+      {/* Floating Call & Zalo Quick Contact Buttons */}
+      <FloatingContactButtons />
     </div>
   );
 }

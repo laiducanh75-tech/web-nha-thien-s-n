@@ -31,10 +31,23 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
           </span>
         </div>
         <div className="flex items-center space-x-6 font-semibold">
-          <span className="flex items-center space-x-1">
+          <a 
+            href="tel:0888447239" 
+            className="flex items-center space-x-1 hover:text-[#FFC72C] transition-colors"
+            title="Gọi ngay 0888.447.239"
+          >
             <Phone size={13} className="text-[#FFC72C]" />
-            <span>Hỗ trợ 24/7: 0888.447.239</span>
-          </span>
+            <span>Hotline: 0888.447.239</span>
+          </a>
+          <a 
+            href="https://zalo.me/0888447239" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center space-x-1 bg-[#0068FF] hover:bg-blue-600 transition-colors px-2 py-0.5 rounded text-[11px] text-white font-bold"
+            title="Chat Zalo 0888.447.239"
+          >
+            <span>Zalo: 0888.447.239</span>
+          </a>
           <a 
             href="https://nhatthienson.nhatthienson.vn" 
             target="_blank" 
@@ -43,7 +56,7 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
             title="Dành cho nhân viên Nhất Thiên Sơn"
           >
             <Mail size={12} className="text-[#FFC72C]" />
-            <span>Đăng nhập Webmail</span>
+            <span>Webmail</span>
           </a>
         </div>
       </div>
@@ -129,6 +142,23 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
                 {item.label}
               </button>
             ))}
+            <div className="grid grid-cols-2 gap-2 pt-1">
+              <a
+                href="tel:0888447239"
+                className="flex items-center justify-center space-x-1.5 bg-[#22c55e] text-white py-2.5 rounded-lg font-bold text-sm shadow-sm"
+              >
+                <Phone size={16} />
+                <span>Gọi ngay</span>
+              </a>
+              <a
+                href="https://zalo.me/0888447239"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center space-x-1.5 bg-[#0068FF] text-white py-2.5 rounded-lg font-bold text-sm shadow-sm"
+              >
+                <span>Chat Zalo</span>
+              </a>
+            </div>
             <button
               onClick={() => {
                 setIsOpen(false);
@@ -140,11 +170,11 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
               }}
               className="w-full text-center bg-[#FF5A00] text-white py-3 rounded-lg font-bold shadow-sm"
             >
-              Liên hệ báo giá ngay
+              Yêu cầu báo giá
             </button>
             <div className="pt-3 border-t border-gray-200 mt-2 text-xs text-gray-500 space-y-1">
               <p>📍 Trụ sở: 138/10 KP 57, Thới An, Q.12, TPHCM</p>
-              <p>📞 Hotline: 0888.447.239</p>
+              <p>📞 Hotline / Zalo: 0888.447.239</p>
             </div>
           </div>
         </div>
