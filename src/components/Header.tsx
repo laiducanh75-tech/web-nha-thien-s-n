@@ -62,23 +62,15 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
       </div>
 
       {/* Main navigation */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3 flex items-center justify-between">
         {/* Brand Logo & Name */}
         <div 
-          className="flex items-center space-x-3 cursor-pointer group"
+          className="flex items-center cursor-pointer group py-1"
           onClick={() => { onTabChange('home'); setIsOpen(false); }}
+          title="Về trang chủ Nhất Thiên Sơn Sài Gòn Logistics"
         >
-          {/* Official NTS Saigon Logistics Logo */}
-          <NtsLogo className="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 group-hover:scale-105 transition-transform duration-300" />
-          
-          <div className="flex flex-col">
-            <h1 className="text-lg md:text-xl font-extrabold text-[#002D62] leading-tight tracking-tight uppercase">
-              Nhất Thiên Sơn
-            </h1>
-            <span className="text-[10px] md:text-xs font-semibold text-gray-500 uppercase tracking-widest leading-none">
-              Saigon Logistics
-            </span>
-          </div>
+          {/* Official NTS Saigon Logistics Logo Image */}
+          <NtsLogo className="h-28 sm:h-32 md:h-40 max-h-[160px] w-auto max-w-none flex-shrink-0 group-hover:scale-105 transition-transform duration-300" />
         </div>
 
         {/* Desktop Navbar Menu */}
