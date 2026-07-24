@@ -4,12 +4,15 @@ import { INITIAL_SHIPMENTS, SERVICES_DATA } from '../data';
 import { Shipment, ContactRequest } from '../types';
 import TrackingTimeline from './TrackingTimeline';
 import PartnersSection from './PartnersSection';
+import { useLanguage } from '../context/LanguageContext';
 
 interface HomeViewProps {
   onNavigateToTab: (tab: string) => void;
 }
 
 export default function HomeView({ onNavigateToTab }: HomeViewProps) {
+  const { t, language } = useLanguage();
+
   // Tracking states
   const [trackingCode, setTrackingCode] = useState('');
   const [searchedShipment, setSearchedShipment] = useState<Shipment | null>(null);
@@ -32,7 +35,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
     const cleanCode = trackingCode.trim().toUpperCase();
     
     if (!cleanCode) {
-      setSearchError('Vui lòng nhập mã vận đơn.');
+      setSearchError(language === 'en' ? 'Please enter a valid tracking code.' : 'Vui lòng nhập mã vận đơn.');
       setSearchedShipment(null);
       return;
     }
@@ -50,42 +53,42 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
       if (cleanCode.startsWith('NTS') && cleanCode.length >= 6) {
         const mockGeneratedShipment: Shipment = {
           id: cleanCode,
-          type: Math.random() > 0.5 ? 'Đường biển' : 'Hàng không',
-          origin: "Cảng Singapore (Singapore)",
-          destination: "Cảng Đà Nẵng (Đà Nẵng, Vietnam)",
+          type: Math.random() > 0.5 ? (language === 'en' ? 'Sea Freight' : 'Đường biển') : (language === 'en' ? 'Air Freight' : 'Hàng không'),
+          origin: language === 'en' ? "Port of Singapore (Singapore)" : "Cảng Singapore (Singapore)",
+          destination: language === 'en' ? "Danang Port (Danang, Vietnam)" : "Cảng Đà Nẵng (Đà Nẵng, Vietnam)",
           sender: "Singapore Global Logistics Ltd.",
-          receiver: "Khách hàng cá nhân (" + cleanCode + ")",
-          status: "Đang vận chuyển nội địa chặng chốt",
+          receiver: language === 'en' ? `Consignee (${cleanCode})` : `Khách hàng cá nhân (${cleanCode})`,
+          status: language === 'en' ? "In transit - Final mile delivery" : "Đang vận chuyển nội địa chặng chốt",
           statusPercent: 90,
           estimatedDelivery: "25/07/2026",
-          carrierName: "Hãng chuyển phát nhanh Nhất Thiên Sơn",
+          carrierName: "Nhat Thien Son Express Logistics",
           containerId: `CNT-CUSTOM-${cleanCode}`,
           weight: "85 kg",
           volume: "0.8 CBM",
           steps: [
             {
-              title: "Đã tạo đơn vận chuyển",
-              description: "Hệ thống ghi nhận thông tin lô hàng của khách hàng.",
+              title: language === 'en' ? "Shipment Order Created" : "Đã tạo đơn vận chuyển",
+              description: language === 'en' ? "Shipment record logged into NTS tracking engine." : "Hệ thống ghi nhận thông tin lô hàng của khách hàng.",
               date: "17/07/2026",
               time: "09:00",
               status: "completed",
-              location: "Kho CFS Singapore"
+              location: "Singapore CFS Hub"
             },
             {
-              title: "Hàng được thông quan xuất khẩu",
-              description: "Chứng từ thông quan đầu cảng đi đã hoàn tất.",
+              title: language === 'en' ? "Export Customs Cleared" : "Hàng được thông quan xuất khẩu",
+              description: language === 'en' ? "Port departure export documentation completed." : "Chứng từ thông quan đầu cảng đi đã hoàn tất.",
               date: "18/07/2026",
               time: "15:45",
               status: "completed",
-              location: "Hải quan Singapore"
+              location: "Singapore Customs"
             },
             {
-              title: "Đang di chuyển trên biển/hàng không",
-              description: "Lô hàng đang được vận chuyển quốc tế an toàn.",
+              title: language === 'en' ? "In Transit (International Transit)" : "Đang di chuyển trên biển/hàng không",
+              description: language === 'en' ? "Cargo safely in international transit route." : "Lô hàng đang được vận chuyển quốc tế an toàn.",
               date: "19/07/2026",
               time: "10:30",
               status: "current",
-              location: "Hải phận quốc tế"
+              location: "International Waters"
             }
           ]
         };
@@ -95,7 +98,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
           document.getElementById('tracking-result-anchor')?.scrollIntoView({ behavior: 'smooth' });
         }, 100);
       } else {
-        setSearchError('Không tìm thấy mã vận đơn này. Thử lại với mã: NTS123456, NTS789012 hoặc NTS345678.');
+        setSearchError(language === 'en' ? 'Tracking code not found. Try: NTS123456, NTS789012 or NTS345678.' : 'Không tìm thấy mã vận đơn này. Thử lại với mã: NTS123456, NTS789012 hoặc NTS345678.');
         setSearchedShipment(null);
       }
     }
@@ -198,37 +201,52 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
     <div className="font-sans" id="home-view">
       
       {/* 1. Hero banner with track & trace widget */}
-      <section className="relative bg-slate-900 overflow-hidden min-h-[600px] flex flex-col justify-center" id="hero-banner">
-        {/* Professional Logistics Background Image Overlay */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center mix-blend-multiply opacity-55 scale-105 transition-transform duration-[10000ms]"
-          style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=1920")' }}
-        ></div>
+      <section className="relative bg-[#001838] overflow-hidden min-h-[600px] flex flex-col justify-center" id="hero-banner">
+        {/* Animated Looping Background Video for Busy Container Port & Logistics */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=1920"
+          className="absolute inset-0 w-full h-full object-cover opacity-30 blur-[1.5px] scale-105 pointer-events-none transition-opacity duration-1000"
+        >
+          <source 
+            src="https://assets.mixkit.co/videos/preview/mixkit-container-ship-sailing-in-the-sea-41228-large.mp4" 
+            type="video/mp4" 
+          />
+          <source 
+            src="https://assets.mixkit.co/videos/preview/mixkit-top-view-of-a-container-ship-in-the-ocean-41230-large.mp4" 
+            type="video/mp4" 
+          />
+        </video>
+
+        {/* Dark gradient overlay for optimal text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#00122e]/90 via-[#002855]/75 to-[#00122e]/90 mix-blend-multiply pointer-events-none"></div>
+        <div className="absolute inset-0 bg-black/20 pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Main Slogan Banner */}
           <div className="lg:col-span-7 space-y-6 text-white text-left">
             <span className="inline-block bg-[#FF5A00] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">
-              Thành lập từ 2025 • Uy tín Hàng đầu
+              {t.heroBadge}
             </span>
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] text-white">
-              Giải pháp Logistics <br />
-              <span className="text-[#FFC72C]">Thông minh</span> – Nhanh chóng, <br />
-              Đáng tin cậy, Toàn cầu
+              {t.heroTitle}
             </h2>
             <p className="text-lg sm:text-xl text-gray-300 font-light max-w-xl leading-relaxed">
-              Nhất Thiên Sơn Sài Gòn tự hào là cầu nối tin cậy cho chuỗi cung ứng của quý khách hàng với công nghệ số hiện đại và đội ngũ chuyên gia tận tâm.
+              {t.heroSubtitle}
             </p>
           </div>
 
           {/* Tracking Widget Container Card */}
           <div className="lg:col-span-5 bg-white/95 backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-2xl border border-white/20">
             <h3 className="text-[#002D62] font-bold text-lg uppercase tracking-wider mb-2 text-center">
-              Nhập mã để kiểm tra trạng thái
+              {t.trackingTab}
             </h3>
             <p className="text-xs text-gray-500 text-center mb-6">
-              Tra cứu thời gian thực hải trình tàu biển, hàng không và nội địa
+              {language === 'en' ? 'Real-time tracking across ocean, air, and inland logistics routes' : 'Tra cứu thời gian thực hải trình tàu biển, hàng không và nội địa'}
             </p>
 
             <form onSubmit={handleTrackingSearch} className="space-y-4">
@@ -238,7 +256,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
                 </span>
                 <input
                   type="text"
-                  placeholder="Mã vận đơn (e.g. NTS123456)"
+                  placeholder={t.trackingPlaceholder}
                   value={trackingCode}
                   onChange={(e) => setTrackingCode(e.target.value)}
                   className="w-full pl-11 pr-4 py-3.5 bg-slate-100 border border-slate-300 rounded-xl focus:border-[#002D62] focus:ring-1 focus:ring-[#002D62] text-sm font-semibold outline-none text-slate-800 tracking-wide uppercase"
@@ -249,31 +267,31 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
                 type="submit"
                 className="w-full bg-[#FF5A00] hover:bg-[#e04f00] text-white py-4 rounded-xl font-bold uppercase tracking-wider shadow-lg hover:shadow-xl transition-all duration-200 cursor-pointer active:scale-[0.98]"
               >
-                Theo dõi lô hàng
+                {t.trackBtn}
               </button>
             </form>
 
             {/* Quick Testing Suggestions */}
             <div className="mt-5 pt-4 border-t border-slate-200/60 text-xs">
-              <span className="text-gray-500 block mb-2 font-medium">Bấm thử nhanh mã kiểm mẫu:</span>
+              <span className="text-gray-500 block mb-2 font-medium">{t.quickTrackLabel}</span>
               <div className="flex flex-wrap gap-2">
                 <button 
                   onClick={() => handleQuickSearch('NTS123456')}
                   className="bg-[#002D62]/10 text-[#002D62] hover:bg-[#002D62]/20 font-mono font-bold px-2.5 py-1.5 rounded transition-all"
                 >
-                  NTS123456 (Đường Biển)
+                  NTS123456 ({t.filterSea})
                 </button>
                 <button 
                   onClick={() => handleQuickSearch('NTS789012')}
                   className="bg-indigo-50 text-indigo-700 hover:bg-indigo-100 font-mono font-bold px-2.5 py-1.5 rounded transition-all"
                 >
-                  NTS789012 (Hàng Không)
+                  NTS789012 ({t.filterAir})
                 </button>
                 <button 
                   onClick={() => handleQuickSearch('NTS345678')}
                   className="bg-amber-50 text-amber-800 hover:bg-amber-100 font-mono font-bold px-2.5 py-1.5 rounded transition-all"
                 >
-                  NTS345678 (Đường Bộ)
+                  NTS345678 ({t.filterInland})
                 </button>
               </div>
             </div>
@@ -305,33 +323,40 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
       {/* 4. Professional services list */}
       <section className="py-20 bg-slate-50" id="services-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-[#FF5A00] font-bold text-sm tracking-widest uppercase">Danh mục nghiệp vụ</span>
+          <span className="text-[#FF5A00] font-bold text-sm tracking-widest uppercase">{t.servicesBadge}</span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#002D62] mt-2 mb-4">
-            Dịch vụ vận tải chuyên nghiệp
+            {t.servicesTitle}
           </h2>
           <p className="text-gray-600 max-w-xl mx-auto text-base">
-            Chúng tôi cung cấp các giải pháp chuỗi cung ứng toàn diện, từ khâu đóng gói đến giao nhận chặng chốt an toàn.
+            {t.servicesSubtitle}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
-            {SERVICES_DATA.map((service) => (
-              <div 
-                key={service.id}
-                className="bg-white rounded-2xl p-6 shadow-md border border-slate-100 hover:shadow-xl transition-all duration-300 text-left group flex flex-col justify-between"
-              >
-                <div>
-                  <div className="w-12 h-12 rounded-xl bg-slate-100 group-hover:bg-[#002D62] flex items-center justify-center mb-6 transition-all shadow-inner">
-                    {renderServiceIcon(service.id)}
+            {SERVICES_DATA.map((service) => {
+              const localized = service.id === 'sea' ? { title: t.seaFreightTitle, desc: t.seaFreightDesc }
+                : service.id === 'road' ? { title: t.truckingTitle, desc: t.truckingDesc }
+                : service.id === 'air' ? { title: t.airFreightTitle, desc: t.airFreightDesc }
+                : { title: t.warehouseTitle, desc: t.warehouseDesc };
+
+              return (
+                <div 
+                  key={service.id}
+                  className="bg-white rounded-2xl p-6 shadow-md border border-slate-100 hover:shadow-xl transition-all duration-300 text-left group flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="w-12 h-12 rounded-xl bg-slate-100 group-hover:bg-[#002D62] flex items-center justify-center mb-6 transition-all shadow-inner">
+                      {renderServiceIcon(service.id)}
+                    </div>
+                    <h3 className="text-[#002D62] font-bold text-xl mb-3 group-hover:text-[#FF5A00] transition-colors">
+                      {localized.title}
+                    </h3>
+                    <p className="text-gray-500 text-sm leading-relaxed mb-4">
+                      {localized.desc}
+                    </p>
                   </div>
-                  <h3 className="text-[#002D62] font-bold text-xl mb-3 group-hover:text-[#FF5A00] transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed mb-4">
-                    {service.desc}
-                  </p>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -345,45 +370,31 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
           {/* Mission Left block */}
           <div className="space-y-6 text-left border-b lg:border-b-0 lg:border-r border-blue-900 pb-12 lg:pb-0 lg:pr-12">
             <span className="bg-[#FF5A00] text-white text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider">
-              Cam kết hành động
+              {t.missionBadge}
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#FFC72C] uppercase tracking-wider">
-              SỨ MỆNH
+              {t.ourMissionTitle}
             </h2>
             <div className="space-y-4 text-gray-200 text-sm leading-relaxed font-light">
-              <p>
-                Sứ mệnh của Nhất Thiên Sơn Sài Gòn là mang đến cho khách hàng những giải pháp logistics và vận tải toàn diện, an toàn và tối ưu chi phí, góp phần nâng cao năng lực cạnh tranh cho doanh nghiệp Việt trên thị trường quốc tế.
-              </p>
-              <p>
-                Chúng tôi không chỉ là đơn vị vận tải đơn thuần, mà là người đồng hành đáng tin cậy giúp kết nối thông suốt mọi mắt xích trong chuỗi cung ứng toàn cầu từ vận chuyển đa phương thức đến dịch vụ kho bãi thông minh.
-              </p>
-              <p>
-                Với đội ngũ chuyên gia tận tâm, am hiểu sâu sắc quy trình vận hành và giao nhận, chúng tôi cam kết bảo đảm an toàn tối đa cho mọi chuyến hàng và luôn đúng hẹn trong mọi tình huống.
-              </p>
-              <p>
-                Chúng tôi lấy sự hài lòng và thành công của khách hàng làm thước đo giá trị cốt lõi, không ngừng cải tiến công nghệ và tối ưu quy trình để đem lại trải nghiệm dịch vụ logistics chất lượng cao nhất.
-              </p>
+              <p>{t.missionP1}</p>
+              <p>{t.missionP2}</p>
+              <p>{t.missionP3}</p>
+              <p>{t.missionP4}</p>
             </div>
           </div>
 
           {/* Vision Right block */}
           <div className="space-y-6 text-left lg:pl-4">
             <span className="bg-[#FF5A00] text-white text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider">
-              Tương lai bứt phá
+              {t.visionBadge}
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#FFC72C] uppercase tracking-wider">
-              TẦM NHÌN
+              {t.ourVisionTitle}
             </h2>
             <div className="space-y-4 text-gray-200 text-sm leading-relaxed font-light">
-              <p>
-                Tại Nhất Thiên Sơn Sài Gòn, chúng tôi hướng tới mục tiêu trở thành một thương hiệu logistics hàng đầu, tiên phong trong việc chuyển đổi số và ứng dụng các giải pháp chuỗi cung ứng xanh, bền vững tại Việt Nam.
-              </p>
-              <p>
-                Chúng tôi liên tục hoàn thiện và mở rộng mạng lưới liên kết với các đối tác vận tải hàng không, hàng hải và đường bộ hàng đầu thế giới để gia tăng năng lực tiếp cận thị trường và mở ra những tuyến đường kết nối trực tiếp hiệu quả hơn.
-              </p>
-              <p>
-                Với phương châm "Uy tín – Chuyên nghiệp – Chất lượng – Hiệu quả", Nhất Thiên Sơn Sài Gòn mong muốn trở thành cánh tay nối dài bền vững của các nhà sản xuất, xuất nhập khẩu và phân phối lớn nhỏ trong và ngoài nước.
-              </p>
+              <p>{t.visionP1}</p>
+              <p>{t.visionP2}</p>
+              <p>{t.visionP3}</p>
             </div>
           </div>
         </div>
@@ -399,44 +410,48 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
           
           {/* Left: Input Form Fields */}
           <div className="lg:col-span-7 bg-[#f8fafc] rounded-2xl p-6 sm:p-8 border border-slate-100 shadow-sm text-left">
-            <span className="text-[#FF5A00] font-bold text-xs uppercase tracking-widest">Tiếp nhận thông tin</span>
+            <span className="text-[#FF5A00] font-bold text-xs uppercase tracking-widest">
+              {language === 'en' ? 'LOGISTICS INQUIRY' : 'Tiếp nhận thông tin'}
+            </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#002D62] mt-1 mb-2">
-              Liên hệ với chúng tôi
+              {t.quoteTitle}
             </h2>
             <p className="text-gray-500 text-sm mb-8 leading-relaxed">
-              Gửi yêu cầu của bạn để nhận báo giá chi tiết và tư vấn giải pháp logistics tối ưu hoàn toàn miễn phí.
+              {t.quoteSubtitle}
             </p>
 
             {formSuccess ? (
               <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 p-6 rounded-xl space-y-3 text-center">
                 <CheckCircle className="mx-auto text-emerald-500" size={44} />
-                <h3 className="font-bold text-lg">Gửi yêu cầu thành công!</h3>
+                <h3 className="font-bold text-lg">
+                  {language === 'en' ? 'Quote Request Received!' : 'Gửi yêu cầu thành công!'}
+                </h3>
                 <p className="text-sm">
-                  Cảm ơn quý khách đã gửi thông tin. Đội ngũ tư vấn viên của Nhất Thiên Sơn Sài Gòn sẽ trực tiếp gọi điện báo giá trong vòng 15-30 phút.
+                  {t.quoteSuccessMsg}
                 </p>
                 <button
                   onClick={() => setFormSuccess(false)}
                   className="bg-[#002D62] text-white hover:bg-[#001D40] text-xs font-semibold px-4 py-2 rounded-lg transition-all"
                 >
-                  Gửi thêm yêu cầu mới
+                  {language === 'en' ? 'Submit Another Inquiry' : 'Gửi thêm yêu cầu mới'}
                 </button>
               </div>
             ) : (
               <form onSubmit={handleFormSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wide">Họ và Tên</label>
+                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wide">{t.fullNameLabel}</label>
                     <input
                       type="text"
                       required
-                      placeholder="Nguyễn Văn A"
+                      placeholder={language === 'en' ? 'John Doe' : 'Nguyễn Văn A'}
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
                       className="w-full bg-white border border-slate-200 rounded-lg py-2.5 px-3 text-sm focus:border-[#002D62] focus:ring-1 focus:ring-[#002D62] outline-none text-slate-800"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wide">Số điện thoại</label>
+                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wide">{t.phoneLabel}</label>
                     <input
                       type="tel"
                       required
@@ -450,7 +465,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wide">Email</label>
+                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wide">{t.emailLabel}</label>
                     <input
                       type="email"
                       required
@@ -461,39 +476,38 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wide">Loại hàng</label>
+                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wide">{t.cargoTypeLabel}</label>
                     <select
                       value={cargoType}
                       onChange={(e) => setCargoType(e.target.value)}
                       className="w-full bg-white border border-slate-200 rounded-lg py-2.5 px-3 text-sm focus:border-[#002D62] focus:ring-1 focus:ring-[#002D62] outline-none text-slate-800 font-semibold"
                     >
-                      <option>Đường biển (FCL/LCL)</option>
-                      <option>Đường bộ (Xe tải/Container)</option>
-                      <option>Hàng không (Sân bay)</option>
-                      <option>Kho bãi & Lưu trữ</option>
-                      <option>Thủ tục Hải quan</option>
+                      <option>{t.filterSea} (FCL/LCL)</option>
+                      <option>{t.filterInland} (Trucking)</option>
+                      <option>{t.filterAir}</option>
+                      <option>{t.warehouseTitle}</option>
                     </select>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wide">Nơi đi (Origin)</label>
+                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wide">{t.originLabel}</label>
                     <input
                       type="text"
                       required
-                      placeholder="Ví dụ: Singapore, Hải Phòng, Đà Nẵng..."
+                      placeholder={language === 'en' ? 'e.g., Singapore, Hai Phong, Danang...' : 'Ví dụ: Singapore, Hải Phòng, Đà Nẵng...'}
                       value={origin}
                       onChange={(e) => setOrigin(e.target.value)}
                       className="w-full bg-white border border-slate-200 rounded-lg py-2.5 px-3 text-sm focus:border-[#002D62] focus:ring-1 focus:ring-[#002D62] outline-none text-slate-800"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wide">Nơi đến (Destination)</label>
+                    <label className="text-xs font-bold text-gray-600 uppercase tracking-wide">{t.destLabel}</label>
                     <input
                       type="text"
                       required
-                      placeholder="Ví dụ: TPHCM, Hà Nội, Bình Dương..."
+                      placeholder={language === 'en' ? 'e.g., Ho Chi Minh City, Hanoi...' : 'Ví dụ: TPHCM, Hà Nội, Bình Dương...'}
                       value={destination}
                       onChange={(e) => setDestination(e.target.value)}
                       className="w-full bg-white border border-slate-200 rounded-lg py-2.5 px-3 text-sm focus:border-[#002D62] focus:ring-1 focus:ring-[#002D62] outline-none text-slate-800"
@@ -502,10 +516,10 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-gray-600 uppercase tracking-wide">Lời nhắn hoặc yêu cầu đặc biệt</label>
+                  <label className="text-xs font-bold text-gray-600 uppercase tracking-wide">{t.messageLabel}</label>
                   <textarea
                     rows={4}
-                    placeholder="Thông tin thêm về quy cách hàng hóa, kích thước, khối lượng hoặc thời gian cần gấp..."
+                    placeholder={language === 'en' ? 'Shipment specifications, dimensions, weight, urgency...' : 'Thông tin thêm về quy cách hàng hóa, kích thước, khối lượng hoặc thời gian cần gấp...'}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     className="w-full bg-white border border-slate-200 rounded-lg py-2.5 px-3 text-sm focus:border-[#002D62] focus:ring-1 focus:ring-[#002D62] outline-none text-slate-800"
@@ -517,7 +531,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
                   disabled={isSubmitting}
                   className="w-full bg-[#002D62] hover:bg-[#001D40] text-[#FFC72C] py-4 rounded-xl font-bold uppercase tracking-wider shadow transition-all duration-200 text-center cursor-pointer disabled:opacity-55 active:scale-[0.98]"
                 >
-                  {isSubmitting ? 'Đang gửi thông tin...' : 'Gửi yêu cầu ngay'}
+                  {isSubmitting ? t.submittingText : t.submitQuoteBtn}
                 </button>
               </form>
             )}
@@ -529,7 +543,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
             {/* Contact info card */}
             <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm space-y-4">
               <h3 className="text-lg font-bold text-[#002D62] border-b border-gray-100 pb-2 uppercase tracking-wide">
-                Thông tin liên lạc
+                {t.contactInfoTitle}
               </h3>
               
               <div className="space-y-4 text-sm">
@@ -538,7 +552,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
                     <MapPin size={18} />
                   </span>
                   <div>
-                    <h4 className="font-bold text-gray-800">Địa chỉ trụ sở</h4>
+                    <h4 className="font-bold text-gray-800">{t.addressTitle}</h4>
                     <p className="text-gray-500 text-xs mt-0.5">138/10 Khu Phố 57, Phường Thới An, Quận 12, TPHCM</p>
                   </div>
                 </div>
@@ -548,7 +562,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
                     <Phone size={18} />
                   </span>
                   <div>
-                    <h4 className="font-bold text-gray-800">Điện thoại hỗ trợ</h4>
+                    <h4 className="font-bold text-gray-800">{t.phoneTitle}</h4>
                     <p className="text-gray-500 text-xs mt-0.5 font-mono">0888.447.239</p>
                   </div>
                 </div>
@@ -558,7 +572,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
                     <Mail size={18} />
                   </span>
                   <div>
-                    <h4 className="font-bold text-gray-800">Hòm thư điện tử</h4>
+                    <h4 className="font-bold text-gray-800">{t.emailTitle}</h4>
                     <p className="text-gray-500 text-xs mt-0.5 font-mono">nhatthienson@nhatthienson.vn</p>
                   </div>
                 </div>
