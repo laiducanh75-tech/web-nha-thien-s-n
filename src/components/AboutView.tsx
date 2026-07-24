@@ -1,6 +1,7 @@
 import React from 'react';
 import { ShieldCheck, Zap, Lightbulb, Users, Eye, Rocket, ArrowRight, HelpCircle, MapPin } from 'lucide-react';
 import { CORE_VALUES } from '../data';
+import PartnersSection from './PartnersSection';
 
 interface AboutViewProps {
   onNavigateToTab: (tab: string) => void;
@@ -176,6 +177,9 @@ export default function AboutView({ onNavigateToTab }: AboutViewProps) {
           </div>
         </div>
       </section>
+
+      {/* Partners Section */}
+      <PartnersSection />
 
       {/* 6. High-impact bottom CTA */}
       <section className="bg-[#002D62] text-white py-16 relative overflow-hidden" id="about-cta">

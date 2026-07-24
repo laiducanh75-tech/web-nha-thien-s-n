@@ -3,6 +3,7 @@ import { Search, Ship, Truck, Plane, Warehouse, ArrowRight, ShieldCheck, Mail, P
 import { INITIAL_SHIPMENTS, SERVICES_DATA } from '../data';
 import { Shipment, ContactRequest } from '../types';
 import TrackingTimeline from './TrackingTimeline';
+import PartnersSection from './PartnersSection';
 
 interface HomeViewProps {
   onNavigateToTab: (tab: string) => void;
@@ -406,6 +407,9 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
           </div>
         </div>
       </section>
+
+      {/* 5b. Clients & Partners Section */}
+      <PartnersSection />
 
       {/* 6. Dynamic Contact and quoting Form Section */}
       <section className="py-20 bg-white" id="contact-section">
