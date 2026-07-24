@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Facebook, Twitter, Linkedin, Send, Mail, Phone, MapPin } from 'lucide-react';
 import NtsLogo from './NtsLogo';
+import { useLanguage } from '../context/LanguageContext';
 
 interface FooterProps {
   onTabChange: (tab: string) => void;
@@ -9,6 +10,7 @@ interface FooterProps {
 export default function Footer({ onTabChange }: FooterProps) {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const { t } = useLanguage();
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,15 +53,15 @@ export default function Footer({ onTabChange }: FooterProps) {
             <NtsLogo className="h-12 sm:h-14 md:h-16 max-h-[70px] w-auto flex-shrink-0" />
             <div className="flex flex-col justify-center pr-1">
               <span className="text-xs sm:text-sm md:text-base font-extrabold tracking-tight uppercase text-[#002D62] leading-tight">
-                Nhất Thiên Sơn Sài Gòn
+                {t.companyFullName}
               </span>
               <span className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-[#D21F26] leading-none mt-0.5">
-                Logistics
+                {t.companyShortName}
               </span>
             </div>
           </div>
           <p className="text-xs sm:text-sm text-gray-300 leading-relaxed pt-1">
-            Cung cấp giải pháp vận tải đa phương thức với hiệu quả cao nhất cho doanh nghiệp của bạn. Kết nối thị trường nội địa với chuỗi cung ứng toàn cầu an toàn và tối ưu chi phí.
+            {t.footerDesc}
           </p>
           {/* Social Links Icons */}
           <div className="flex items-center space-x-3 pt-1">
@@ -128,27 +130,27 @@ export default function Footer({ onTabChange }: FooterProps) {
         {/* Services Column */}
         <div>
           <h3 className="text-sm font-bold text-white uppercase tracking-wider border-b border-gray-700 pb-2 mb-3">
-            Dịch vụ
+            {t.footerServicesTitle}
           </h3>
           <ul className="space-y-2 text-xs sm:text-sm text-gray-300">
             <li>
               <button onClick={() => onTabChange('home')} className="hover:text-[#FFC72C] transition-colors text-left py-0.5">
-                Vận tải đường biển (FCL/LCL)
+                {t.seaFreightTitle}
               </button>
             </li>
             <li>
               <button onClick={() => onTabChange('home')} className="hover:text-[#FFC72C] transition-colors text-left py-0.5">
-                Vận tải hàng không
+                {t.airFreightTitle}
               </button>
             </li>
             <li>
               <button onClick={() => onTabChange('home')} className="hover:text-[#FFC72C] transition-colors text-left py-0.5">
-                Vận tải đường bộ nội địa
+                {t.truckingTitle}
               </button>
             </li>
             <li>
               <button onClick={() => onTabChange('home')} className="hover:text-[#FFC72C] transition-colors text-left py-0.5">
-                Dịch vụ kho bãi thông minh
+                {t.warehouseTitle}
               </button>
             </li>
           </ul>
@@ -157,62 +159,51 @@ export default function Footer({ onTabChange }: FooterProps) {
         {/* Links Column */}
         <div>
           <h3 className="text-sm font-bold text-white uppercase tracking-wider border-b border-gray-700 pb-2 mb-3">
-            Liên kết nhanh
+            {t.footerLinksTitle}
           </h3>
           <ul className="space-y-2 text-xs sm:text-sm text-gray-300">
             <li>
               <button onClick={() => onTabChange('about')} className="hover:text-[#FFC72C] transition-colors text-left py-0.5">
-                Về chúng tôi
+                {t.aboutUsLink}
               </button>
             </li>
             <li>
               <button onClick={() => onTabChange('projects')} className="hover:text-[#FFC72C] transition-colors text-left py-0.5">
-                Dự án tiêu biểu
+                {t.projectsLink}
               </button>
             </li>
             <li>
               <a href="#" className="hover:text-[#FFC72C] transition-colors block py-0.5">
-                Bảng giá cước vận chuyển
+                {t.ratesLink}
               </a>
             </li>
             <li>
               <a href="#" className="hover:text-[#FFC72C] transition-colors block py-0.5">
-                Chính sách bảo mật (Privacy Policy)
+                {t.privacyLink}
               </a>
             </li>
             <li>
               <a href="#" className="hover:text-[#FFC72C] transition-colors block py-0.5">
-                Điều khoản dịch vụ (Terms)
+                {t.termsLink}
               </a>
             </li>
-            <li className="pt-1.5 border-t border-gray-800 mt-1.5">
-              <a 
-                href="https://nhatthienson.nhatthienson.vn" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-[#FFC72C] hover:text-white transition-all py-0.5 font-bold flex items-center gap-1.5"
-                title="Hệ thống Email công vụ của Nhất Thiên Sơn"
-              >
-                <Mail size={14} className="text-[#FFC72C]" />
-                <span>Webmail Nội Bộ (NTS Mail)</span>
-              </a>
-            </li>
+
           </ul>
         </div>
 
         {/* Newsletter Column */}
         <div>
           <h3 className="text-sm font-bold text-white uppercase tracking-wider border-b border-gray-700 pb-2 mb-3">
-            Bản tin Logistics
+            {t.footerNewsletterTitle}
           </h3>
           <p className="text-xs text-gray-300 leading-relaxed mb-3">
-            Đăng ký để nhận tin tức logistics mới nhất và các ưu đãi cước vận chuyển định kỳ từ chúng tôi.
+            {t.footerNewsletterDesc}
           </p>
           <form onSubmit={handleSubscribe} className="flex flex-col space-y-2">
             <div className="relative">
               <input
                 type="email"
-                placeholder="Email của bạn..."
+                placeholder="Email..."
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -227,7 +218,7 @@ export default function Footer({ onTabChange }: FooterProps) {
             </div>
             {subscribed && (
               <span className="text-xs text-[#FFC72C] font-semibold animate-pulse block">
-                ✓ Đăng ký thành công! Cảm ơn bạn.
+                {t.footerSubscribeSuccess}
               </span>
             )}
           </form>
@@ -235,7 +226,7 @@ export default function Footer({ onTabChange }: FooterProps) {
           <div className="pt-3 text-xs text-gray-400 space-y-1 border-t border-gray-800 mt-3">
             <div className="flex items-start space-x-1.5">
               <MapPin size={13} className="text-[#FFC72C] mt-0.5 flex-shrink-0" />
-              <span>138/10 Khu Phố 57, Phường Thới An, Quận 12, TPHCM</span>
+              <span>{t.addressLabel}</span>
             </div>
             <div className="flex items-center space-x-1.5">
               <Phone size={13} className="text-[#FFC72C] flex-shrink-0" />
@@ -248,8 +239,8 @@ export default function Footer({ onTabChange }: FooterProps) {
 
       {/* Under footer copyright */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-12 border-t border-gray-800 text-center text-xs text-gray-400 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p>© 2026 Nhất Thiên Sơn Sài Gòn (Saigon Logistics). All rights reserved.</p>
-        <p className="text-gray-500 font-mono">Designed with efficiency for the global market.</p>
+        <p>{t.copyright}</p>
+        <p className="text-gray-500 font-mono">Designed for global trade efficiency.</p>
       </div>
     </footer>
   );
