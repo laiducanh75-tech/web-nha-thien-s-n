@@ -6,7 +6,7 @@ interface NtsLogoProps {
 }
 
 export default function NtsLogo({ 
-  className = "h-20 w-auto", 
+  className = "h-12 w-auto", 
   alt = "Nhất Thiên Sơn Sài Gòn Logistics" 
 }: NtsLogoProps) {
   return (

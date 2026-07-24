@@ -44,11 +44,11 @@ export default function Footer({ onTabChange }: FooterProps) {
         {/* Brand Information Column */}
         <div className="space-y-4">
           <div 
-            className="inline-block bg-white p-3 sm:p-4 rounded-2xl shadow-lg border border-slate-200/80 cursor-pointer hover:scale-105 transition-transform"
+            className="inline-block bg-white p-2.5 sm:p-3 rounded-xl shadow-md border border-slate-200/80 cursor-pointer hover:scale-105 transition-transform"
             onClick={() => onTabChange('home')}
             title="Về trang chủ Nhất Thiên Sơn Sài Gòn Logistics"
           >
-            <NtsLogo className="h-32 sm:h-40 md:h-48 max-h-[200px] w-auto max-w-none" />
+            <NtsLogo className="h-16 sm:h-20 md:h-24 max-h-[90px] w-auto" />
           </div>
           <p className="text-xs sm:text-sm text-gray-300 leading-relaxed pt-1">
             Cung cấp giải pháp vận tải đa phương thức với hiệu quả cao nhất cho doanh nghiệp của bạn. Kết nối thị trường nội địa với chuỗi cung ứng toàn cầu an toàn và tối ưu chi phí.

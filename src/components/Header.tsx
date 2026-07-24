@@ -70,7 +70,7 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
           title="Về trang chủ Nhất Thiên Sơn Sài Gòn Logistics"
         >
           {/* Official NTS Saigon Logistics Logo Image */}
-          <NtsLogo className="h-28 sm:h-32 md:h-40 max-h-[160px] w-auto max-w-none flex-shrink-0 group-hover:scale-105 transition-transform duration-300" />
+          <NtsLogo className="h-10 sm:h-12 md:h-14 max-h-[60px] w-auto flex-shrink-0 group-hover:scale-105 transition-transform duration-300" />
         </div>
 
         {/* Desktop Navbar Menu */}
