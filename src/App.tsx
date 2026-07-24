@@ -5,6 +5,7 @@ import HomeView from './components/HomeView';
 import AboutView from './components/AboutView';
 import ProjectsView from './components/ProjectsView';
 import FloatingContactButtons from './components/FloatingContactButtons';
+import { LanguageProvider } from './context/LanguageContext';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
@@ -69,24 +70,26 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex flex-col justify-between selection:bg-[#FF5A00] selection:text-white" id="root-app-container">
-      <div>
-        {/* Navigation Header bar */}
-        <Header currentTab={currentTab} onTabChange={setCurrentTab} />
+    <LanguageProvider>
+      <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex flex-col justify-between selection:bg-[#FF5A00] selection:text-white" id="root-app-container">
+        <div>
+          {/* Navigation Header bar */}
+          <Header currentTab={currentTab} onTabChange={setCurrentTab} />
 
-        {/* Dynamic transition-animated main content wrapper */}
-        <main className="w-full relative z-10" id="main-content-wrapper">
-          <AnimatePresence mode="wait">
-            {renderActiveView()}
-          </AnimatePresence>
-        </main>
+          {/* Dynamic transition-animated main content wrapper */}
+          <main className="w-full relative z-10" id="main-content-wrapper">
+            <AnimatePresence mode="wait">
+              {renderActiveView()}
+            </AnimatePresence>
+          </main>
+        </div>
+
+        {/* Structured footer block */}
+        <Footer onTabChange={setCurrentTab} />
+
+        {/* Floating Call & Zalo Quick Contact Buttons */}
+        <FloatingContactButtons />
       </div>
-
-      {/* Structured footer block */}
-      <Footer onTabChange={setCurrentTab} />
-
-      {/* Floating Call & Zalo Quick Contact Buttons */}
-      <FloatingContactButtons />
-    </div>
+    </LanguageProvider>
   );
 }
