@@ -44,11 +44,19 @@ export default function Footer({ onTabChange }: FooterProps) {
         {/* Brand Information Column */}
         <div className="space-y-4">
           <div 
-            className="inline-block bg-white p-2.5 sm:p-3 rounded-xl shadow-md border border-slate-200/80 cursor-pointer hover:scale-105 transition-transform"
+            className="inline-flex items-center space-x-3 bg-white p-2.5 sm:p-3 rounded-xl shadow-md border border-slate-200/80 cursor-pointer hover:scale-105 transition-transform"
             onClick={() => onTabChange('home')}
             title="Về trang chủ Nhất Thiên Sơn Sài Gòn Logistics"
           >
-            <NtsLogo className="h-16 sm:h-20 md:h-24 max-h-[90px] w-auto" />
+            <NtsLogo className="h-12 sm:h-14 md:h-16 max-h-[70px] w-auto flex-shrink-0" />
+            <div className="flex flex-col justify-center pr-1">
+              <span className="text-xs sm:text-sm md:text-base font-extrabold tracking-tight uppercase text-[#002D62] leading-tight">
+                Nhất Thiên Sơn Sài Gòn
+              </span>
+              <span className="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-[#D21F26] leading-none mt-0.5">
+                Logistics
+              </span>
+            </div>
           </div>
           <p className="text-xs sm:text-sm text-gray-300 leading-relaxed pt-1">
             Cung cấp giải pháp vận tải đa phương thức với hiệu quả cao nhất cho doanh nghiệp của bạn. Kết nối thị trường nội địa với chuỗi cung ứng toàn cầu an toàn và tối ưu chi phí.
