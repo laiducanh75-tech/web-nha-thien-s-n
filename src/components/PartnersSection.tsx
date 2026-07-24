@@ -1,6 +1,8 @@
 import React from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function PartnersSection() {
+  const { t } = useLanguage();
   const partnerLogos = [
     {
       id: 'huegatex',
@@ -173,11 +175,11 @@ export default function PartnersSection() {
         <div className="text-center">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#8B1E22] uppercase tracking-wider flex items-center justify-center gap-3">
             <span className="w-8 sm:w-12 h-0.5 bg-[#8B1E22]/40 rounded"></span>
-            KHÁCH HÀNG VÀ ĐỐI TÁC
+            {t.partnersTitle}
             <span className="w-8 sm:w-12 h-0.5 bg-[#8B1E22]/40 rounded"></span>
           </h2>
           <p className="text-sm text-slate-500 mt-1 font-medium">
-            Đồng hành cùng các tập đoàn Vận tải &amp; Logistics hàng đầu thế giới và Việt Nam
+            {t.partnersSubtitle}
           </p>
         </div>
       </div>
