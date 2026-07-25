@@ -23,10 +23,16 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
       {/* Top utility bar */}
       <div className="hidden md:flex bg-[#002D62] text-white text-xs py-2 px-6 justify-between items-center border-b border-blue-900">
         <div className="flex items-center space-x-6">
-          <span className="flex items-center space-x-1">
+          <a 
+            href="https://maps.app.goo.gl/jfksZNGEojSoZ8YA9" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center space-x-1 hover:text-[#FFC72C] transition-colors"
+            title="Xem vị trí Nhất Thiên Sơn trên Google Maps"
+          >
             <MapPin size={13} className="text-[#FFC72C]" />
             <span>{t.addressLabel}</span>
-          </span>
+          </a>
           <span className="flex items-center space-x-1">
             <Mail size={13} className="text-[#FFC72C]" />
             <span>nhatthienson@nhatthienson.vn</span>
@@ -244,7 +250,14 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
               {t.requestQuote}
             </button>
             <div className="pt-3 border-t border-gray-200 mt-2 text-xs text-gray-500 space-y-1">
-              <p>📍 Trụ sở: 138/10 KP 57, Thới An, Q.12, TPHCM</p>
+              <a 
+                href="https://maps.app.goo.gl/jfksZNGEojSoZ8YA9" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block hover:text-[#FF5A00] transition-colors"
+              >
+                📍 Trụ sở: 138/10 KP 57, Thới An, Q.12, TPHCM
+              </a>
               <p>📞 Hotline / Zalo: 0888.447.239</p>
             </div>
           </div>
@@ -253,3 +266,4 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
     </header>
   );
 }
+

@@ -547,15 +547,21 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
               </h3>
               
               <div className="space-y-4 text-sm">
-                <div className="flex items-start space-x-3.5">
-                  <span className="w-9 h-9 rounded-full bg-[#002D62]/10 flex items-center justify-center text-[#002D62] flex-shrink-0">
+                <a 
+                  href="https://maps.app.goo.gl/jfksZNGEojSoZ8YA9" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-start space-x-3.5 group hover:text-[#FF5A00] transition-colors"
+                  title="Mở vị trí trên Google Maps"
+                >
+                  <span className="w-9 h-9 rounded-full bg-[#002D62]/10 group-hover:bg-[#FF5A00]/10 flex items-center justify-center text-[#002D62] group-hover:text-[#FF5A00] flex-shrink-0 transition-colors">
                     <MapPin size={18} />
                   </span>
                   <div>
-                    <h4 className="font-bold text-gray-800">{t.addressTitle}</h4>
+                    <h4 className="font-bold text-gray-800 group-hover:text-[#FF5A00] transition-colors">{t.addressTitle}</h4>
                     <p className="text-gray-500 text-xs mt-0.5">138/10 Khu Phố 57, Phường Thới An, Quận 12, TPHCM</p>
                   </div>
-                </div>
+                </a>
 
                 <div className="flex items-start space-x-3.5">
                   <span className="w-9 h-9 rounded-full bg-[#002D62]/10 flex items-center justify-center text-[#002D62] flex-shrink-0">
@@ -579,20 +585,33 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
               </div>
             </div>
 
-            {/* Real Interactive Google Map */}
-            <div className="bg-slate-100 rounded-2xl overflow-hidden shadow-sm border border-slate-200 h-80 flex flex-col">
+            {/* Real Interactive Google Map linked directly to Google Maps */}
+            <a
+              href="https://maps.app.goo.gl/jfksZNGEojSoZ8YA9"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg border border-slate-200 h-80 flex flex-col relative group cursor-pointer transition-all block"
+              title="Mở vị trí Nhất Thiên Sơn Sài Gòn trên Google Maps"
+            >
               <iframe
-                title="Bản đồ Nhất Thiên Sơn"
-                src="https://maps.google.com/maps?q=138/10%20Khu%20Ph%E1%BB%91%2057%20Ph%C6%B0%E1%BB%9Dng%20Th%E1%BB%9Bi%20An%20Qu%E1%BA%ADn%2012%20TPHCM&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                title="Bản đồ Nhất Thiên Sơn Sài Gòn"
+                src="https://maps.google.com/maps?q=Nh%E1%BA%A5t%20Thi%C3%AAn%20S%C6%A1n%20S%C3%A0i%20G%C3%B2n&t=&z=16&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-full"
+                className="w-full h-full pointer-events-none"
               ></iframe>
-            </div>
+              {/* Clickable overlay badge */}
+              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                <div className="bg-[#002D62] group-hover:bg-[#FF5A00] text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl shadow-lg transition-all flex items-center space-x-2 transform group-hover:scale-105">
+                  <MapPin size={16} className="text-[#FFC72C]" />
+                  <span>Xem vị trí Nhất Thiên Sơn Sài Gòn trên Google Maps ↗</span>
+                </div>
+              </div>
+            </a>
 
           </div>
 

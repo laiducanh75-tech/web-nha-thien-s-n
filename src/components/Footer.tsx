@@ -224,10 +224,16 @@ export default function Footer({ onTabChange }: FooterProps) {
           </form>
 
           <div className="pt-3 text-xs text-gray-400 space-y-1 border-t border-gray-800 mt-3">
-            <div className="flex items-start space-x-1.5">
+            <a 
+              href="https://maps.app.goo.gl/jfksZNGEojSoZ8YA9" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-start space-x-1.5 hover:text-[#FFC72C] transition-colors"
+              title="Xem vị trí Nhất Thiên Sơn trên Google Maps"
+            >
               <MapPin size={13} className="text-[#FFC72C] mt-0.5 flex-shrink-0" />
               <span>{t.addressLabel}</span>
-            </div>
+            </a>
             <div className="flex items-center space-x-1.5">
               <Phone size={13} className="text-[#FFC72C] flex-shrink-0" />
               <span>0888.447.239</span>
