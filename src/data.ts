@@ -238,28 +238,64 @@ export const CORE_VALUES = [
 
 export const PROJECTS_DATA = [
   {
+    id: "kiem-tra-an-ninh",
     title: "Kiểm tra an ninh nghiêm ngặt",
     subtitle: "TIÊU CHUẨN QUỐC TẾ",
     desc: "An toàn là ưu tiên hàng đầu tại Nhất Thiên Sơn. Mọi lô hàng đều trải qua quy trình kiểm soát đa lớp, đảm bảo tuân thủ các quy định an ninh vận tải quốc tế khắt khe nhất.",
-    img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800"
+    img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800",
+    fullDesc: "Hệ thống kiểm soát an ninh đa tầng với máy soi tia X-ray công nghiệp, niêm phong kẹp chì hải quan chống gian lận và theo dõi camera 24/7. Mọi kiện hàng từ nhỏ lẻ LCL đến nguyên container FCL đều được rà soát kỹ lưỡng trước khi bốc xếp.",
+    specs: {
+      standard: "AEO / C-TPAT Certified",
+      location: "Kho CFS Sài Gòn & Hải Phòng",
+      capacity: "5,000 m2 / ngày",
+      technology: "X-Ray Dual-View & AI Scanning"
+    },
+    tags: ["AEO Standard", "Customs Seal", "X-Ray Inspection"]
   },
   {
+    id: "quy-trinh-dong-hang",
     title: "Quy trình đóng hàng chuyên nghiệp",
     subtitle: "Tối ưu hóa không gian",
     desc: "Chúng tôi tận dụng tối đa diện tích container thông qua các thuật toán sắp xếp thông minh, giúp giảm thiểu rủi ro va đập và tiết kiệm chi phí cho khách hàng.",
-    img: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=800"
+    img: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=800",
+    fullDesc: "Ứng dụng thuật toán xếp hàng 3D tối ưu hóa dung tích container, đóng gói gỗ tiêu chuẩn ISPM 15 chằng buộc lashing cẩn thận. Đảm bảo tỷ lệ lấp đầy đạt từ 92% đến 98% dung tích thùng.",
+    specs: {
+      standard: "ISPM 15 Wood Packing",
+      location: "Bãi Depot Container Nhất Thiên Sơn",
+      capacity: "120 Container / ngày",
+      technology: "3D Cargo Load Planner"
+    },
+    tags: ["3D Loading", "Lashing & Strapping", "ISPM 15"]
   },
   {
+    id: "van-tai-fcl",
     title: "Vận tải Full-Container (FCL)",
     subtitle: "HIỆU QUẢ VẬN CHUYỂN",
     desc: "Giải pháp vận chuyển nguyên container cho các lô hàng lớn, đảm bảo tính riêng tư và thời gian vận chuyển nhanh nhất trong mạng lưới toàn cầu.",
-    img: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&q=80&w=800"
+    img: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&q=80&w=800",
+    fullDesc: "Cung cấp vỏ container 20ft, 40ft GP, 40ft HC, Reefer lạnh chất lượng cao đạt chuẩn IICL-5. Kết nối trực tiếp các tuyến đường biển quốc tế xuyên Thái Bình Dương và Á - Âu.",
+    specs: {
+      standard: "IICL-5 Container Grade",
+      location: "Toàn cầu (Châu Á, Châu Âu, Mỹ)",
+      capacity: "10,000+ TEU / năm",
+      technology: "GPS Container Tracking & Temp Monitoring"
+    },
+    tags: ["FCL Shipping", "Reefer Control", "IICL-5 Fleet"]
   },
   {
+    id: "quan-ly-pallet",
     title: "Quản lý Pallet & Hàng hóa",
     subtitle: "ỨNG DỤNG CÔNG NGHỆ",
     desc: "Hệ thống quản lý kho bãi (WMS) tiên tiến cho phép theo dõi thời gian thực từng kiện hàng trên pallet. Mỗi pallet được mã hóa và định vị chính xác trong suốt hành trình.",
     img: "https://images.unsplash.com/photo-1553413719-8758712747d5?auto=format&fit=crop&q=80&w=800",
+    fullDesc: "Quản lý tồn kho tự động bằng mã QR/BarCode, quét chip RFID và báo cáo tồn kho tự động hàng ngày cho chủ hàng thông qua cổng kết nối Portal.",
+    specs: {
+      standard: "WMS Cloud ERP Integrated",
+      location: "Kho trung chuyển TPHCM & Bình Dương",
+      capacity: "20,000 Pallets Slot",
+      technology: "Barcode & QR Code Scanning System"
+    },
     tags: ["Real-time Tracking", "QR Scanning", "Inventory Control"]
   }
 ];
+

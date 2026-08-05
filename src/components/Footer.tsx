@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { Facebook, Twitter, Linkedin, Send, Mail, Phone, MapPin } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import NtsLogo from './NtsLogo';
 import { useLanguage } from '../context/LanguageContext';
 
 interface FooterProps {
-  onTabChange: (tab: string) => void;
+  onTabChange?: (tab: string) => void;
 }
 
 export default function Footer({ onTabChange }: FooterProps) {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const { t } = useLanguage();
+  const navigate = useNavigate();
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,9 +47,9 @@ export default function Footer({ onTabChange }: FooterProps) {
         
         {/* Brand Information Column */}
         <div className="space-y-4">
-          <div 
+          <Link 
+            to="/"
             className="inline-flex items-center space-x-3 bg-white p-2.5 sm:p-3 rounded-xl shadow-md border border-slate-200/80 cursor-pointer hover:scale-105 transition-transform"
-            onClick={() => onTabChange('home')}
             title="Về trang chủ Nhất Thiên Sơn Sài Gòn Logistics"
           >
             <NtsLogo className="h-12 sm:h-14 md:h-16 max-h-[70px] w-auto flex-shrink-0" />
@@ -59,7 +61,7 @@ export default function Footer({ onTabChange }: FooterProps) {
                 {t.companyShortName}
               </span>
             </div>
-          </div>
+          </Link>
           <p className="text-xs sm:text-sm text-gray-300 leading-relaxed pt-1">
             {t.footerDesc}
           </p>
@@ -134,24 +136,24 @@ export default function Footer({ onTabChange }: FooterProps) {
           </h3>
           <ul className="space-y-2 text-xs sm:text-sm text-gray-300">
             <li>
-              <button onClick={() => onTabChange('home')} className="hover:text-[#FFC72C] transition-colors text-left py-0.5">
+              <Link to="/services/sea" className="hover:text-[#FFC72C] transition-colors block py-0.5">
                 {t.seaFreightTitle}
-              </button>
+              </Link>
             </li>
             <li>
-              <button onClick={() => onTabChange('home')} className="hover:text-[#FFC72C] transition-colors text-left py-0.5">
+              <Link to="/services/air" className="hover:text-[#FFC72C] transition-colors block py-0.5">
                 {t.airFreightTitle}
-              </button>
+              </Link>
             </li>
             <li>
-              <button onClick={() => onTabChange('home')} className="hover:text-[#FFC72C] transition-colors text-left py-0.5">
+              <Link to="/services/road" className="hover:text-[#FFC72C] transition-colors block py-0.5">
                 {t.truckingTitle}
-              </button>
+              </Link>
             </li>
             <li>
-              <button onClick={() => onTabChange('home')} className="hover:text-[#FFC72C] transition-colors text-left py-0.5">
+              <Link to="/services/warehouse" className="hover:text-[#FFC72C] transition-colors block py-0.5">
                 {t.warehouseTitle}
-              </button>
+              </Link>
             </li>
           </ul>
         </div>
@@ -163,31 +165,30 @@ export default function Footer({ onTabChange }: FooterProps) {
           </h3>
           <ul className="space-y-2 text-xs sm:text-sm text-gray-300">
             <li>
-              <button onClick={() => onTabChange('about')} className="hover:text-[#FFC72C] transition-colors text-left py-0.5">
+              <Link to="/about" className="hover:text-[#FFC72C] transition-colors block py-0.5">
                 {t.aboutUsLink}
-              </button>
+              </Link>
             </li>
             <li>
-              <button onClick={() => onTabChange('projects')} className="hover:text-[#FFC72C] transition-colors text-left py-0.5">
+              <Link to="/collection" className="hover:text-[#FFC72C] transition-colors block py-0.5">
                 {t.projectsLink}
-              </button>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-[#FFC72C] transition-colors block py-0.5">
+              <Link to="/sale" className="hover:text-[#FFC72C] transition-colors block py-0.5">
                 {t.ratesLink}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-[#FFC72C] transition-colors block py-0.5">
+              <Link to="/about" className="hover:text-[#FFC72C] transition-colors block py-0.5">
                 {t.privacyLink}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-[#FFC72C] transition-colors block py-0.5">
+              <Link to="/about" className="hover:text-[#FFC72C] transition-colors block py-0.5">
                 {t.termsLink}
-              </a>
+              </Link>
             </li>
-
           </ul>
         </div>
 
@@ -251,3 +252,4 @@ export default function Footer({ onTabChange }: FooterProps) {
     </footer>
   );
 }
+

@@ -1,22 +1,38 @@
 import React, { useState } from 'react';
 import { Menu, X, Phone, Mail, MapPin, Globe } from 'lucide-react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import NtsLogo from './NtsLogo';
 import { useLanguage } from '../context/LanguageContext';
 
 interface HeaderProps {
-  currentTab: string;
-  onTabChange: (tab: string) => void;
+  currentTab?: string;
+  onTabChange?: (tab: string) => void;
 }
 
 export default function Header({ currentTab, onTabChange }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const navItems = [
-    { id: 'home', label: t.navHome },
-    { id: 'about', label: t.navAbout },
-    { id: 'projects', label: t.navProjects },
+    { id: 'home', label: t.navHome, path: '/' },
+    { id: 'about', label: t.navAbout, path: '/about' },
+    { id: 'collection', label: t.navProjects, path: '/collection' },
+    { id: 'services', label: t.servicesTitle || 'Dịch vụ', path: '/services' },
+    { id: 'sale', label: 'Ưu đãi & Báo giá', path: '/sale' },
   ];
+
+  const isNavActive = (path: string) => {
+    if (path === '/') return location.pathname === '/' || location.pathname === '/home';
+    return location.pathname.startsWith(path);
+  };
+
+  const handleNavClick = (path: string, id: string) => {
+    navigate(path);
+    if (onTabChange) onTabChange(id);
+    setIsOpen(false);
+  };
 
   return (
     <header className="w-full bg-white shadow-md sticky top-0 z-50 font-sans" id="app-header">
@@ -57,7 +73,6 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
             <span>Zalo</span>
           </a>
 
-
           {/* Language Switcher in Utility Bar */}
           <div className="flex items-center bg-blue-950/80 p-0.5 rounded-full border border-blue-700/60 ml-2">
             <button
@@ -89,9 +104,10 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
       {/* Main navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3 flex items-center justify-between">
         {/* Brand Logo & Name */}
-        <div 
+        <Link 
+          to="/"
           className="flex items-center space-x-2.5 sm:space-x-3 cursor-pointer group py-1"
-          onClick={() => { onTabChange('home'); setIsOpen(false); }}
+          onClick={() => setIsOpen(false)}
           title="Về trang chủ Nhất Thiên Sơn Sài Gòn Logistics"
         >
           {/* Official NTS Saigon Logistics Logo Image */}
@@ -104,16 +120,16 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
               {t.companyShortName}
             </span>
           </div>
-        </div>
+        </Link>
 
         {/* Desktop Navbar Menu */}
         <nav className="hidden md:flex items-center space-x-1">
           {navItems.map((item) => (
             <button
               key={item.id}
-              onClick={() => onTabChange(item.id)}
-              className={`px-4 py-2 rounded-md text-sm font-semibold transition-all duration-200 cursor-pointer ${
-                currentTab === item.id
+              onClick={() => handleNavClick(item.path, item.id)}
+              className={`px-3.5 py-2 rounded-md text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                isNavActive(item.path)
                   ? 'bg-[#002D62] text-[#FFC72C] shadow-sm'
                   : 'text-[#002D62] hover:bg-gray-100 hover:text-[#002D62]'
               }`}
@@ -124,14 +140,8 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
 
           {/* Primary Action Button */}
           <button 
-            onClick={() => {
-              onTabChange('home');
-              setTimeout(() => {
-                const el = document.getElementById('contact-section');
-                el?.scrollIntoView({ behavior: 'smooth' });
-              }, 100);
-            }}
-            className="ml-3 bg-[#FF5A00] hover:bg-[#e04f00] text-white px-5 py-2 rounded-full text-sm font-bold shadow-md transition-all duration-200 cursor-pointer"
+            onClick={() => handleNavClick('/sale', 'sale')}
+            className="ml-2 bg-[#FF5A00] hover:bg-[#e04f00] text-white px-4 py-2 rounded-full text-xs sm:text-sm font-bold shadow-md transition-all duration-200 cursor-pointer"
           >
             {t.requestQuote}
           </button>
@@ -206,12 +216,9 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
             {navItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => {
-                  onTabChange(item.id);
-                  setIsOpen(false);
-                }}
+                onClick={() => handleNavClick(item.path, item.id)}
                 className={`w-full text-left px-4 py-3 rounded-lg text-base font-semibold transition-all ${
-                  currentTab === item.id
+                  isNavActive(item.path)
                     ? 'bg-[#002D62] text-white font-bold'
                     : 'text-gray-700 hover:bg-gray-100'
                 }`}
@@ -237,14 +244,7 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
               </a>
             </div>
             <button
-              onClick={() => {
-                setIsOpen(false);
-                onTabChange('home');
-                setTimeout(() => {
-                  const el = document.getElementById('contact-section');
-                  el?.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-              }}
+              onClick={() => handleNavClick('/sale', 'sale')}
               className="w-full text-center bg-[#FF5A00] text-white py-3 rounded-lg font-bold shadow-sm"
             >
               {t.requestQuote}
@@ -266,4 +266,5 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
     </header>
   );
 }
+
 

@@ -53,7 +53,7 @@ export default function HomeView({ onNavigateToTab }: HomeViewProps) {
       if (cleanCode.startsWith('NTS') && cleanCode.length >= 6) {
         const mockGeneratedShipment: Shipment = {
           id: cleanCode,
-          type: Math.random() > 0.5 ? (language === 'en' ? 'Sea Freight' : 'Đường biển') : (language === 'en' ? 'Air Freight' : 'Hàng không'),
+          type: Math.random() > 0.5 ? 'Đường biển' : 'Hàng không',
           origin: language === 'en' ? "Port of Singapore (Singapore)" : "Cảng Singapore (Singapore)",
           destination: language === 'en' ? "Danang Port (Danang, Vietnam)" : "Cảng Đà Nẵng (Đà Nẵng, Vietnam)",
           sender: "Singapore Global Logistics Ltd.",

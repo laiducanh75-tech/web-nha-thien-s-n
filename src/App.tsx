@@ -1,91 +1,73 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import HomeView from './components/HomeView';
 import AboutView from './components/AboutView';
 import ProjectsView from './components/ProjectsView';
+import CollectionDetailView from './components/CollectionDetailView';
+import ServicesView from './components/ServicesView';
+import SaleView from './components/SaleView';
 import FloatingContactButtons from './components/FloatingContactButtons';
 import { LanguageProvider } from './context/LanguageContext';
 import { motion, AnimatePresence } from 'motion/react';
 
-export default function App() {
-  const [currentTab, setCurrentTab] = useState<string>('home');
+// ScrollToTop component ensures page scrolls to top on route navigation
+function ScrollToTop() {
+  const { pathname } = useLocation();
 
-  // Auto-scroll to top when tab changes
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [currentTab]);
+    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+  }, [pathname]);
 
-  const renderActiveView = () => {
-    switch (currentTab) {
-      case 'home':
-        return (
-          <motion.div
-            key="home"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.35, ease: 'easeOut' }}
-          >
-            <HomeView onNavigateToTab={setCurrentTab} />
-          </motion.div>
-        );
-      case 'about':
-        return (
-          <motion.div
-            key="about"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.35, ease: 'easeOut' }}
-          >
-            <AboutView onNavigateToTab={setCurrentTab} />
-          </motion.div>
-        );
-      case 'projects':
-        return (
-          <motion.div
-            key="projects"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.35, ease: 'easeOut' }}
-          >
-            <ProjectsView onNavigateToTab={setCurrentTab} />
-          </motion.div>
-        );
-      default:
-        return (
-          <motion.div
-            key="home"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.35, ease: 'easeOut' }}
-          >
-            <HomeView onNavigateToTab={setCurrentTab} />
-          </motion.div>
-        );
-    }
-  };
+  return null;
+}
+
+export default function App() {
+  const location = useLocation();
 
   return (
     <LanguageProvider>
+      <ScrollToTop />
       <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex flex-col justify-between selection:bg-[#FF5A00] selection:text-white" id="root-app-container">
         <div>
           {/* Navigation Header bar */}
-          <Header currentTab={currentTab} onTabChange={setCurrentTab} />
+          <Header />
 
-          {/* Dynamic transition-animated main content wrapper */}
+          {/* Dynamic transition-animated main content wrapper with Routing */}
           <main className="w-full relative z-10" id="main-content-wrapper">
             <AnimatePresence mode="wait">
-              {renderActiveView()}
+              <motion.div
+                key={location.pathname}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.25, ease: 'easeOut' }}
+              >
+                <Routes location={location}>
+                  <Route path="/" element={<HomeView onNavigateToTab={() => {}} />} />
+                  <Route path="/home" element={<HomeView onNavigateToTab={() => {}} />} />
+                  <Route path="/about" element={<AboutView onNavigateToTab={() => {}} />} />
+                  <Route path="/ve-chung-toi" element={<AboutView onNavigateToTab={() => {}} />} />
+                  <Route path="/projects" element={<ProjectsView />} />
+                  <Route path="/collection" element={<ProjectsView />} />
+                  <Route path="/collection/:id" element={<CollectionDetailView />} />
+                  <Route path="/product/:id" element={<CollectionDetailView />} />
+                  <Route path="/services" element={<ServicesView />} />
+                  <Route path="/services/:serviceId" element={<ServicesView />} />
+                  <Route path="/sale" element={<SaleView />} />
+                  <Route path="/uu-dai" element={<SaleView />} />
+                  <Route path="/bao-gia" element={<SaleView />} />
+                  {/* Fallback to Home */}
+                  <Route path="*" element={<HomeView onNavigateToTab={() => {}} />} />
+                </Routes>
+              </motion.div>
             </AnimatePresence>
           </main>
         </div>
 
         {/* Structured footer block */}
-        <Footer onTabChange={setCurrentTab} />
+        <Footer />
 
         {/* Floating Call & Zalo Quick Contact Buttons */}
         <FloatingContactButtons />
@@ -93,4 +75,3 @@ export default function App() {
     </LanguageProvider>
   );
 }
-

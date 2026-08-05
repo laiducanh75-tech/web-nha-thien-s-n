@@ -2,20 +2,22 @@ import React from 'react';
 import { PROJECTS_DATA } from '../data';
 import { ShieldCheck, Box, Package, HelpCircle, ArrowUpRight, CheckCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useNavigate, Link } from 'react-router-dom';
 
 interface ProjectsViewProps {
-  onNavigateToTab: (tab: string) => void;
+  onNavigateToTab?: (tab: string) => void;
 }
 
 export default function ProjectsView({ onNavigateToTab }: ProjectsViewProps) {
   const { t, language } = useLanguage();
+  const navigate = useNavigate();
 
   return (
     <div className="font-sans bg-slate-50 min-h-screen pb-20" id="projects-view">
       {/* 1. Breadcrumbs bar */}
       <div className="bg-slate-100 py-3 border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-xs text-gray-500 flex items-center space-x-2">
-          <button onClick={() => onNavigateToTab('home')} className="hover:text-[#002D62] font-medium">{t.navHome}</button>
+          <Link to="/" className="hover:text-[#002D62] font-medium">{t.navHome}</Link>
           <span>&gt;</span>
           <span className="text-gray-800 font-semibold">{t.navProjects}</span>
         </div>
@@ -40,19 +42,20 @@ export default function ProjectsView({ onNavigateToTab }: ProjectsViewProps) {
         </div>
       </div>
 
-      {/* 3. Project Detail Cards - Structured block list as shown in Screenshot #2 */}
+      {/* 3. Project Detail Cards - Structured block list */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
-        {PROJECTS_DATA.map((proj, idx) => (
+        {PROJECTS_DATA.map((proj) => (
           <div 
-            key={idx}
-            className="bg-white rounded-2xl border border-slate-200/60 shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 text-left"
+            key={proj.id}
+            onClick={() => navigate(`/collection/${proj.id}`)}
+            className="bg-white rounded-2xl border border-slate-200/60 shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 text-left cursor-pointer group"
           >
             {/* Project Image Header with high-aspect-ratio */}
             <div className="h-64 sm:h-80 w-full relative overflow-hidden">
               <img 
                 src={proj.img} 
                 alt={proj.title}
-                className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
@@ -60,11 +63,16 @@ export default function ProjectsView({ onNavigateToTab }: ProjectsViewProps) {
               <div className="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded">
                 ✓ {proj.subtitle}
               </div>
+
+              <div className="absolute bottom-4 right-4 bg-[#FF5A00] text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-md opacity-0 group-hover:opacity-100 transition-opacity flex items-center space-x-1">
+                <span>{language === 'en' ? 'View Specs' : 'Xem thông số chi tiết'}</span>
+                <ArrowUpRight size={14} />
+              </div>
             </div>
 
             {/* Project Text Body */}
             <div className="p-6 sm:p-8 space-y-4">
-              <h3 className="text-xl sm:text-2xl font-extrabold text-[#002D62] tracking-tight group-hover:text-[#FF5A00]">
+              <h3 className="text-xl sm:text-2xl font-extrabold text-[#002D62] tracking-tight group-hover:text-[#FF5A00] transition-colors">
                 {proj.title}
               </h3>
               
@@ -72,7 +80,7 @@ export default function ProjectsView({ onNavigateToTab }: ProjectsViewProps) {
                 {proj.desc}
               </p>
 
-              {/* Render tech tags if available (like Pallet & Cargo management card) */}
+              {/* Render tech tags */}
               {proj.tags && (
                 <div className="flex flex-wrap gap-2 pt-2">
                   {proj.tags.map((tag, tagIdx) => (
@@ -80,7 +88,7 @@ export default function ProjectsView({ onNavigateToTab }: ProjectsViewProps) {
                       key={tagIdx}
                       className="bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full"
                     >
-                      {tag}
+                      #{tag}
                     </span>
                   ))}
                 </div>
@@ -89,7 +97,7 @@ export default function ProjectsView({ onNavigateToTab }: ProjectsViewProps) {
           </div>
         ))}
 
-        {/* Supplementary Pink Container Visual Block showing ONE Marine Box (matches Screenshot #2) */}
+        {/* Supplementary Pink Container Visual Block */}
         <div className="bg-white rounded-2xl border border-slate-200/60 shadow-md overflow-hidden p-6 sm:p-8 text-left space-y-6">
           <h4 className="text-lg font-bold text-[#002D62] uppercase tracking-wider border-b border-gray-100 pb-2">
             {language === 'en' ? 'Operating Container Fleet & Cargo Space' : 'Đội tàu và Vỏ container vận hành thực tế'}
@@ -133,7 +141,7 @@ export default function ProjectsView({ onNavigateToTab }: ProjectsViewProps) {
         </div>
       </section>
 
-      {/* 4. Orange Call to Action Block as shown at bottom of Screenshot #2 */}
+      {/* 4. Orange Call to Action Block */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
         <div className="bg-[#B34700] rounded-2xl p-8 text-white text-center space-y-6 shadow-lg border border-orange-500/10">
           <h3 className="text-xl sm:text-2xl font-bold uppercase">
@@ -146,25 +154,13 @@ export default function ProjectsView({ onNavigateToTab }: ProjectsViewProps) {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <button 
-              onClick={() => {
-                onNavigateToTab('home');
-                setTimeout(() => {
-                  const el = document.getElementById('contact-section');
-                  el?.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-              }}
+              onClick={() => navigate('/sale')}
               className="bg-white hover:bg-orange-50 text-[#B34700] px-6 py-3 rounded-lg font-bold text-sm shadow transition-all active:scale-95 cursor-pointer"
             >
               {t.requestQuote}
             </button>
             <button 
-              onClick={() => {
-                onNavigateToTab('home');
-                setTimeout(() => {
-                  const el = document.getElementById('contact-section');
-                  el?.scrollIntoView({ behavior: 'smooth' });
-                }, 100);
-              }}
+              onClick={() => navigate('/sale')}
               className="border border-white hover:bg-white/10 text-white px-6 py-3 rounded-lg font-bold text-sm transition-all active:scale-95 cursor-pointer"
             >
               {t.contactConsultation}
@@ -175,3 +171,4 @@ export default function ProjectsView({ onNavigateToTab }: ProjectsViewProps) {
     </div>
   );
 }
+
