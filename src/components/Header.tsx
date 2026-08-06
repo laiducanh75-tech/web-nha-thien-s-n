@@ -19,8 +19,8 @@ export default function Header({ currentTab, onTabChange }: HeaderProps) {
     { id: 'home', label: t.navHome, path: '/' },
     { id: 'about', label: t.navAbout, path: '/about' },
     { id: 'collection', label: t.navProjects, path: '/collection' },
-    { id: 'services', label: t.servicesTitle || 'Dịch vụ', path: '/services' },
-    { id: 'sale', label: 'Ưu đãi & Báo giá', path: '/sale' },
+    { id: 'services', label: language === 'en' ? 'Services' : 'Dịch vụ', path: '/services' },
+    { id: 'sale', label: language === 'en' ? 'Offers & Quote' : 'Ưu đãi & Báo giá', path: '/sale' },
   ];
 
   const isNavActive = (path: string) => {
